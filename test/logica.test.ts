@@ -6,18 +6,28 @@ import {
   puedeRetirar,
   turnoComputadora,
   reiniciarJuego,
+  cambiarModo,
   Juego,
-  CONFIGURACION_POR_DEFECTO
+  CONFIGURACION_POR_DEFECTO,
+  ModoJuego
 } from '../src/logica.js';
 
 describe('crearJuego', () => {
-  it('crea un juego con la configuración por defecto', () => {
+  it('crea un juego con la configuración por defecto (vs computadora)', () => {
     const juego = crearJuego();
     expect(juego.pupusasRestantes).toBe(CONFIGURACION_POR_DEFECTO.pupusasIniciales);
     expect(juego.turno).toBe('humano');
     expect(juego.estado).toBe('jugando');
     expect(juego.historial).toEqual([]);
     expect(juego.configuracion).toEqual(CONFIGURACION_POR_DEFECTO);
+  });
+
+  it('crea un juego en modo dos jugadores', () => {
+    const juego = crearJuego({ modo: 'dos-jugadores' });
+    expect(juego.pupusasRestantes).toBe(CONFIGURACION_POR_DEFECTO.pupusasIniciales);
+    expect(juego.turno).toBe('jugador1');
+    expect(juego.estado).toBe('jugando');
+    expect(juego.configuracion.modo).toBe('dos-jugadores');
   });
 
   it('permite personalizar la configuración inicial', () => {
@@ -48,7 +58,7 @@ describe('puedeRetirar', () => {
   });
 });
 
-describe('retirarPupusas', () => {
+describe('retirarPupusas - modo vs computadora', () => {
   it('actualiza pupusas restantes y turno', () => {
     const juego = crearJuego({ pupusasIniciales: 10 });
     const nuevoJuego = retirarPupusas(juego, 2);
@@ -90,6 +100,43 @@ describe('retirarPupusas', () => {
   });
 });
 
+describe('retirarPupusas - modo dos jugadores', () => {
+  it('alterna turnos entre jugador1 y jugador2', () => {
+    const juego = crearJuego({ pupusasIniciales: 10, modo: 'dos-jugadores' });
+    let nuevoJuego = retirarPupusas(juego, 2);
+    expect(nuevoJuego.turno).toBe('jugador2');
+    expect(nuevoJuego.estado).toBe('jugando');
+
+    nuevoJuego = retirarPupusas(nuevoJuego, 1);
+    expect(nuevoJuego.turno).toBe('jugador1');
+    expect(nuevoJuego.estado).toBe('jugando');
+  });
+
+  it('registra movimientos con jugador correcto', () => {
+    const juego = crearJuego({ pupusasIniciales: 10, modo: 'dos-jugadores' });
+    let nuevoJuego = retirarPupusas(juego, 2);
+    expect(nuevoJuego.historial[0].jugador).toBe('jugador1');
+
+    nuevoJuego = retirarPupusas(nuevoJuego, 1);
+    expect(nuevoJuego.historial[1].jugador).toBe('jugador2');
+  });
+
+  it('detecta victoria del jugador2 cuando jugador1 toma la última', () => {
+    const juego = crearJuego({ pupusasIniciales: 1, modo: 'dos-jugadores' });
+    const nuevoJuego = retirarPupusas(juego, 1);
+    expect(nuevoJuego.estado).toBe('gano-jugador2');
+    expect(nuevoJuego.pupusasRestantes).toBe(0);
+  });
+
+  it('detecta victoria del jugador1 cuando jugador2 toma la última', () => {
+    const juego = crearJuego({ pupusasIniciales: 1, modo: 'dos-jugadores' });
+    juego.turno = 'jugador2';
+    const nuevoJuego = retirarPupusas(juego, 1);
+    expect(nuevoJuego.estado).toBe('gano-jugador1');
+    expect(nuevoJuego.pupusasRestantes).toBe(0);
+  });
+});
+
 describe('turnoComputadora', () => {
   it('devuelve un número válido entre 1 y maxRetirar', () => {
     const juego = crearJuego({ pupusasIniciales: 10 });
@@ -119,5 +166,48 @@ describe('reiniciarJuego', () => {
     expect(reiniciado.estado).toBe('jugando');
     expect(reiniciado.historial).toEqual([]);
     expect(reiniciado.configuracion).toEqual(juego.configuracion);
+  });
+
+  it('restablece modo dos jugadores correctamente', () => {
+    const juego = crearJuego({ pupusasIniciales: 15, maxRetirar: 3, modo: 'dos-jugadores' });
+    juego.pupusasRestantes = 5;
+    juego.turno = 'jugador2';
+    juego.estado = 'gano-jugador1';
+    juego.historial = [{ jugador: 'jugador1', cantidad: 2, pupusasRestantes: 5 }];
+
+    const reiniciado = reiniciarJuego(juego);
+    expect(reiniciado.pupusasRestantes).toBe(15);
+    expect(reiniciado.turno).toBe('jugador1');
+    expect(reiniciado.estado).toBe('jugando');
+    expect(reiniciado.historial).toEqual([]);
+    expect(reiniciado.configuracion.modo).toBe('dos-jugadores');
+  });
+});
+
+describe('cambiarModo', () => {
+  it('cambia de vs-computadora a dos-jugadores', () => {
+    const juego = crearJuego({ pupusasIniciales: 10, modo: 'vs-computadora' });
+    juego.pupusasRestantes = 5;
+    juego.turno = 'computadora';
+    juego.historial = [{ jugador: 'humano', cantidad: 2, pupusasRestantes: 5 }];
+
+    const nuevoJuego = cambiarModo(juego, 'dos-jugadores');
+    expect(nuevoJuego.configuracion.modo).toBe('dos-jugadores');
+    expect(nuevoJuego.pupusasRestantes).toBe(10); // Se reinicia
+    expect(nuevoJuego.turno).toBe('jugador1');
+    expect(nuevoJuego.historial).toEqual([]);
+  });
+
+  it('cambia de dos-jugadores a vs-computadora', () => {
+    const juego = crearJuego({ pupusasIniciales: 10, modo: 'dos-jugadores' });
+    juego.pupusasRestantes = 5;
+    juego.turno = 'jugador2';
+    juego.historial = [{ jugador: 'jugador1', cantidad: 2, pupusasRestantes: 5 }];
+
+    const nuevoJuego = cambiarModo(juego, 'vs-computadora');
+    expect(nuevoJuego.configuracion.modo).toBe('vs-computadora');
+    expect(nuevoJuego.pupusasRestantes).toBe(10);
+    expect(nuevoJuego.turno).toBe('humano');
+    expect(nuevoJuego.historial).toEqual([]);
   });
 });

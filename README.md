@@ -4,11 +4,12 @@ Juego de estrategia para una persona contra la computadora, inspirado en el jueg
 
 ## Cómo jugar
 
-1. Hay un plato con pupusas (12 por defecto).
-2. En tu turno, retira **1, 2 o 3 pupusas** (botones abajo).
-3. Luego juega la computadora.
-4. Quien se vea obligado a tomar la **última pupusa pierde**.
-5. Usa el botón **Reiniciar partida** para volver a empezar.
+1. **Elige el modo** en el selector superior: *Contra la computadora* o *Dos jugadores*.
+2. Hay un plato con pupusas (12 por defecto).
+3. En tu turno, retira **1, 2 o 3 pupusas** (botones abajo).
+4. En modo *contra la computadora*, luego juega la IA. En modo *dos jugadores*, el turno alterna entre Jugador 1 y Jugador 2.
+5. Quien se vea obligado a tomar la **última pupusa pierde**.
+6. Usa el botón **Reiniciar partida** para volver a empezar.
 
 La computadora juega con estrategia óptima: intenta dejarte en posiciones perdedoras (múltiplos de 4 + 1).
 
@@ -48,7 +49,7 @@ npm run preview
 │   ├── main.ts         # Conecta lógica con interfaz
 │   └── estilo.css      # Estilos visuales (tema pupusería)
 ├── test/
-│   └── logica.test.ts  # Pruebas automatizadas (13 tests)
+│   └── logica.test.ts  # Pruebas automatizadas (21 tests)
 ├── package.json
 ├── tsconfig.json
 └── .gitignore

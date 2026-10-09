@@ -215,6 +215,59 @@ h1 {
   border: 2px solid var(--color-primario);
 }
 
+.turno-jugador1 .turno-valor {
+  color: #2980b9;
+  border: 2px solid #2980b9;
+}
+
+.turno-jugador2 .turno-valor {
+  color: #8e44ad;
+  border: 2px solid #8e44ad;
+}
+
+/* Selector de modo */
+.modo-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-radius: var(--radio);
+  border: 2px solid #f0c44c;
+}
+
+.modo-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #8d6e63;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modo-select {
+  padding: 0.625rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-texto);
+  background: white;
+  border: 2px solid #f0c44c;
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: all var(--transicion);
+  min-height: 44px;
+  min-width: 200px;
+}
+
+.modo-select:hover {
+  border-color: var(--color-primario);
+}
+
+.modo-select:focus-visible {
+  outline: 3px solid var(--color-primario);
+  outline-offset: 2px;
+}
+
 /* Botones de acción */
 .acciones {
   display: flex;
@@ -357,6 +410,16 @@ h1 {
   .info-juego {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .modo-selector {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .modo-select {
+    min-width: auto;
+    width: 100%;
   }
 
   .acciones {

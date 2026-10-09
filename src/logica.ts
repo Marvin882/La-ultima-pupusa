@@ -1,9 +1,10 @@
 // Lógica del juego "La última pupusa"
-// Por implementar según la ficha del proyecto
 
-export type Jugador = 'humano' | 'computadora';
+export type ModoJuego = 'vs-computadora' | 'dos-jugadores';
 
-export type EstadoJuego = 'jugando' | 'gano-humano' | 'gano-computadora';
+export type Jugador = 'humano' | 'computadora' | 'jugador1' | 'jugador2';
+
+export type EstadoJuego = 'jugando' | 'gano-humano' | 'gano-computadora' | 'gano-jugador1' | 'gano-jugador2';
 
 export interface Movimiento {
   jugador: Jugador;
@@ -14,11 +15,13 @@ export interface Movimiento {
 export interface ConfiguracionJuego {
   pupusasIniciales: number;
   maxRetirar: number;
+  modo: ModoJuego;
 }
 
 export const CONFIGURACION_POR_DEFECTO: ConfiguracionJuego = {
   pupusasIniciales: 12,
-  maxRetirar: 3
+  maxRetirar: 3,
+  modo: 'vs-computadora'
 };
 
 export interface Juego {
@@ -31,9 +34,10 @@ export interface Juego {
 
 export function crearJuego(config?: Partial<ConfiguracionJuego>): Juego {
   const configuracion = { ...CONFIGURACION_POR_DEFECTO, ...config };
+  const turnoInicial = configuracion.modo === 'dos-jugadores' ? 'jugador1' : 'humano';
   return {
     pupusasRestantes: configuracion.pupusasIniciales,
-    turno: 'humano',
+    turno: turnoInicial,
     estado: 'jugando',
     historial: [],
     configuracion
@@ -57,12 +61,32 @@ export function retirarPupusas(juego: Juego, cantidad: number): Juego {
   };
 
   let nuevoEstado: EstadoJuego = 'jugando';
-  let siguienteTurno: Jugador = juego.turno === 'humano' ? 'computadora' : 'humano';
+  let siguienteTurno: Jugador = juego.turno;
 
   if (nuevasPupusas === 0) {
     // Quien retira la última pierde
-    nuevoEstado = juego.turno === 'humano' ? 'gano-computadora' : 'gano-humano';
+    switch (juego.turno) {
+      case 'humano':
+        nuevoEstado = 'gano-computadora';
+        break;
+      case 'computadora':
+        nuevoEstado = 'gano-humano';
+        break;
+      case 'jugador1':
+        nuevoEstado = 'gano-jugador2';
+        break;
+      case 'jugador2':
+        nuevoEstado = 'gano-jugador1';
+        break;
+    }
     siguienteTurno = juego.turno;
+  } else {
+    // Cambiar turno según el modo
+    if (juego.configuracion.modo === 'dos-jugadores') {
+      siguienteTurno = juego.turno === 'jugador1' ? 'jugador2' : 'jugador1';
+    } else {
+      siguienteTurno = juego.turno === 'humano' ? 'computadora' : 'humano';
+    }
   }
 
   return {
@@ -94,4 +118,9 @@ export function turnoComputadora(juego: Juego): number {
 
 export function reiniciarJuego(juego: Juego): Juego {
   return crearJuego(juego.configuracion);
+}
+
+export function cambiarModo(juego: Juego, modo: ModoJuego): Juego {
+  const nuevaConfig = { ...juego.configuracion, modo };
+  return crearJuego(nuevaConfig);
 }

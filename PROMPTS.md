@@ -57,4 +57,19 @@
 
 ---
 
+## Prompt 7
+**Usuario:**
+> me gustaria agregar una nueva funcion, el modo de jugar con los jugadores, me explico que en vez de jugar con la ia, se pueda jugar con otra persona
+
+**Resultado:** Implementada la funcionalidad **modo dos jugadores** (humano vs humano):
+- `src/logica.ts`: nuevo tipo `ModoJuego` (`vs-computadora` | `dos-jugadores`), turnos alternados `jugador1`/`jugador2`, estados `gano-jugador1`/`gano-jugador2`, función `cambiarModo()`.
+- `index.html`: selector `<select id="modo-juego">`.
+- `src/main.ts`: indicadores de turno por jugador, mensajes de victoria por jugador, conexión del selector.
+- `src/estilo.css`: estilos del selector y del turno de cada jugador (azul J1, morado J2) + responsive.
+- `test/logica.test.ts`: pruebas ampliadas de 13 a **21** (modo dos jugadores, `cambiarModo`).
+- `npx tsc --noEmit` ✅, `npm test` 21/21 ✅, `npm run build` ✅.
+- Verificación visual con navegador: se detectó y **corrigió un bug** (mensajes de victoria invertidos en modo dos jugadores). Tras la corrección, verificado: J1 retira última → gana J2 (mensaje correcto).
+
+---
+
 > **Nota:** Los commits 2 y 3 (`reglas: logica desde mi ficha`, `pruebas: reglas comprobadas`) quedaron cubiertos en el commit 1 porque toda la lógica y pruebas se implementaron y verificaron en la etapa inicial. Se documenta aquí para trazabilidad.
