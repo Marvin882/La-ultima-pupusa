@@ -168,7 +168,7 @@ h1 {
 }
 
 .contador-label {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #8d6e63;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -190,7 +190,7 @@ h1 {
 }
 
 .turno-label {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #8d6e63;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -238,7 +238,7 @@ h1 {
 }
 
 .modo-label {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #8d6e63;
   text-transform: uppercase;
@@ -361,7 +361,7 @@ h1 {
 }
 
 .historial-titulo {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #8d6e63;
   text-transform: uppercase;
@@ -372,7 +372,7 @@ h1 {
 }
 
 .historial-item {
-  font-size: 0.875rem;
+  font-size: 1rem;
   padding: 0.375rem 0.5rem;
   border-radius: 6px;
   margin-bottom: 0.25rem;

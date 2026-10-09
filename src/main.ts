@@ -1,12 +1,13 @@
 // Punto de entrada - conecta la lógica con la interfaz
+import './estilo.css';
 import { 
   crearJuego, 
   retirarPupusas, 
+  puedeRetirar,
   turnoComputadora, 
   reiniciarJuego, 
   cambiarModo,
   Juego, 
-  Jugador,
   ModoJuego 
 } from './logica.js';
 
@@ -31,9 +32,9 @@ function actualizarVista(): void {
   
   // Actualizar botones
   const esTurnoHumanoActivo = esTurnoActivoHumano();
-  btn1.disabled = !puedeRetirar(1) || juego.estado !== 'jugando' || !esTurnoHumanoActivo;
-  btn2.disabled = !puedeRetirar(2) || juego.estado !== 'jugando' || !esTurnoHumanoActivo;
-  btn3.disabled = !puedeRetirar(3) || juego.estado !== 'jugando' || !esTurnoHumanoActivo;
+  btn1.disabled = !puedeRetirar(juego, 1) || juego.estado !== 'jugando' || !esTurnoHumanoActivo;
+  btn2.disabled = !puedeRetirar(juego, 2) || juego.estado !== 'jugando' || !esTurnoHumanoActivo;
+  btn3.disabled = !puedeRetirar(juego, 3) || juego.estado !== 'jugando' || !esTurnoHumanoActivo;
 
   // Dibujar pupusas en el plato
   dibujarPupusas();
@@ -60,10 +61,6 @@ function actualizarIndicadorTurno(): void {
     turnoDisplay.textContent = juego.turno === 'humano' ? 'Tu turno' : 'Turno de la computadora';
     turnoDisplay.className = juego.turno === 'humano' ? 'turno-humano' : 'turno-computadora';
   }
-}
-
-function puedeRetirar(cantidad: number): boolean {
-  return cantidad >= 1 && cantidad <= juego.configuracion.maxRetirar && cantidad <= juego.pupusasRestantes;
 }
 
 function dibujarPupusas(): void {
@@ -116,7 +113,7 @@ function actualizarHistorial(): void {
 async function manejarTurnoHumano(cantidad: number): Promise<void> {
   if (juego.estado !== 'jugando') return;
   if (!esTurnoActivoHumano()) return;
-  if (!puedeRetirar(cantidad)) return;
+  if (!puedeRetirar(juego, cantidad)) return;
 
   juego = retirarPupusas(juego, cantidad);
   actualizarVista();

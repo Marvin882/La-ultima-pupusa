@@ -184,6 +184,47 @@ describe('reiniciarJuego', () => {
   });
 });
 
+describe('partida completa de principio a fin', () => {
+  it('se puede llegar al final bueno jugando una partida completa contra la computadora', () => {
+    let juego = crearJuego({ pupusasIniciales: 12, maxRetirar: 3, modo: 'vs-computadora' });
+    const max = juego.configuracion.maxRetirar;
+    let pasos = 0;
+
+    while (juego.estado === 'jugando' && pasos < 50) {
+      pasos++;
+      if (juego.turno === 'humano') {
+        // El humano juega óptimo: intenta dejar 1, 5 o 9 pupusas
+        const restantes = juego.pupusasRestantes;
+        const objetivo = (restantes - 1) % (max + 1);
+        const cantidad = (objetivo >= 1 && objetivo <= max) ? objetivo : 1;
+        juego = retirarPupusas(juego, cantidad);
+      } else {
+        juego = retirarPupusas(juego, turnoComputadora(juego));
+      }
+    }
+
+    expect(juego.estado).toBe('gano-humano');
+    expect(juego.pupusasRestantes).toBe(0);
+    expect(juego.historial.length).toBeGreaterThan(0);
+  });
+
+  it('se puede llegar al final bueno en una partida completa entre dos jugadores', () => {
+    let juego = crearJuego({ pupusasIniciales: 12, maxRetirar: 3, modo: 'dos-jugadores' });
+
+    juego = retirarPupusas(juego, 3); // J1: quedan 9
+    expect(juego.turno).toBe('jugador2');
+    juego = retirarPupusas(juego, 3); // J2: quedan 6
+    expect(juego.turno).toBe('jugador1');
+    juego = retirarPupusas(juego, 3); // J1: quedan 3
+    expect(juego.turno).toBe('jugador2');
+    juego = retirarPupusas(juego, 3); // J2 toma la última y pierde
+
+    expect(juego.pupusasRestantes).toBe(0);
+    expect(juego.estado).toBe('gano-jugador1');
+    expect(juego.historial).toHaveLength(4);
+  });
+});
+
 describe('cambiarModo', () => {
   it('cambia de vs-computadora a dos-jugadores', () => {
     const juego = crearJuego({ pupusasIniciales: 10, modo: 'vs-computadora' });

@@ -1,19 +1,20 @@
 # La última pupusa
 
-Juego de estrategia para una persona contra la computadora, inspirado en el juego de Nim. Quien retire la última pupusa **pierde**.
+## 1. Nombre y frase
 
-## Cómo jugar
+**La última pupusa** — Quedan pupusas en el plato; cada quien agarra una, dos o tres. El que agarra la última, pierde.
 
-1. **Elige el modo** en el selector superior: *Contra la computadora* o *Dos jugadores*.
-2. Hay un plato con pupusas (12 por defecto).
-3. En tu turno, retira **1, 2 o 3 pupusas** (botones abajo).
-4. En modo *contra la computadora*, luego juega la IA. En modo *dos jugadores*, el turno alterna entre Jugador 1 y Jugador 2.
-5. Quien se vea obligado a tomar la **última pupusa pierde**.
-6. Usa el botón **Reiniciar partida** para volver a empezar.
+## 2. Qué hace y cómo se usa
 
-La computadora juega con estrategia óptima: intenta dejarte en posiciones perdedoras (múltiplos de 4 + 1).
+Línea 1: Es un juego de estrategia contra la computadora (o contra otra persona en modo dos jugadores): hay 12 pupusas en un plato.
+Línea 2: En tu turno retiras 1, 2 o 3 pupusas con los botones; luego juega el rival y el turno se alterna.
+Línea 3: Quien se ve obligado a tomar la última pupusa pierde; puedes reiniciar la partida cuando quieras.
 
-## Comandos
+## 3. Enlace para abrirlo
+
+🔗 https://marvin882.github.io/La-ultima-pupusa/
+
+## 4. Cómo correrlo en otra máquina
 
 ```bash
 # Instalar dependencias
@@ -32,50 +33,16 @@ npm run build
 npm run preview
 ```
 
-## Enlace público
+## 5. Qué dirigí yo y qué error encontré probando
 
-🔗 https://marvin882.github.io/La-ultima-pupusa/
+<!-- El estudiante completa esta parte a mano. No la llena la IA. -->
 
-*(Se publica automáticamente desde la rama `gh-pages` tras push a `master` — **verificado funcionando**)*
+_[Espacio para el estudiante: qué dirigí yo y qué error encontré probando]_
 
----
+## 6. Declaración de autoría
 
-## Estructura del proyecto
+<!-- El estudiante completa y firma esta parte a mano. No la inventa la IA. -->
 
-```
-├── index.html          # HTML principal
-├── src/
-│   ├── logica.ts       # Reglas, tipos y estrategia (separada de la UI)
-│   ├── main.ts         # Conecta lógica con interfaz
-│   └── estilo.css      # Estilos visuales (tema pupusería)
-├── test/
-│   └── logica.test.ts  # Pruebas automatizadas (21 tests)
-├── package.json
-├── tsconfig.json
-└── .gitignore
-```
+Herramienta usada: un agente de IA (OpenCode) bajo mi dirección.
 
-## Tecnologías
-
-- TypeScript (estricto)
-- Vite (dev server + build)
-- Vitest (pruebas)
-- CSS moderno (variables, clamp, grid/flex, animaciones)
-
----
-
-## Qué dirigí
-
-_[Completar: decisiones de diseño, arquitectura, enfoque...]_
-
-## Qué error encontré y cómo lo resolví
-
-_[Completar: bug específico, causa, solución...]_
-
-## Declaración de autoría
-
-Yo, **Marvin882**, declaro que este proyecto es mi trabajo original, desarrollado como parte de la práctica 19, siguiendo las etapas y commits requeridos.
-
----
-
-*Proyecto educativo — Práctica 19 — "La última pupusa"*
+_[Espacio para el estudiante: declaro que el código lo generó un agente de IA bajo mi dirección y estas son las partes que puedo explicar:]_

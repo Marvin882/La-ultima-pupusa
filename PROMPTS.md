@@ -72,4 +72,34 @@
 
 ---
 
+## Prompt 8
+**Usuario:**
+> analiza este archivo y mira si todo esa bien con lo que hemos echo
+> [Adjunto: PRÁCTICA SEMANA 2_3DS-A.html — ficha oficial con los 8 prompts, 6 commits, 4 bloques y rúbrica]
+
+**Resultado:** Análisis completo contra la ficha oficial. Hallazgos: (1) faltan 2 mensajes exactos de commit y hay 4 commits extra; (2) `logica.ts` devuelve objetos en vez de `true`/`false` (P1); (3) falta la prueba 5 de recorrido completo (P2); (4) `main.ts` duplica `puedeRetirar`, falta `import './estilo.css'` y falta `id="app"` (P3); (5) 5 textos a 14px en vez de ≥16px (P3/P4); (6) P5 nunca se ejecutó; (7) README sin las 6 partes exactas y con declaración de autoría incorrecta; (8) `PROMPTS.md` sin textos íntegros; (9) modo dos-jugadores es alcance no pedido. Se propuso arreglar el grupo 1–4.
+
+## Prompt 9
+**Usuario:**
+> continua
+
+**Resultado:** Continuación del análisis (se completó la lectura de la ficha: bloques, commits, requisito del celular y lista de encargos).
+
+## Prompt 10
+**Usuario:**
+> continua
+
+**Resultado:** Se terminó de verificar el encargo 19 y se presentó el informe final con 10 puntos y propuesta de arreglo por prioridad.
+
+## Prompt 11
+**Usuario:**
+> si hazlos
+
+**Resultado:** Aplicadas las correcciones 1–4:
+1. Texto: 5 selectores de `0.875rem` → `1rem` en `src/estilo.css` (etiquetas, historial).
+2. P3: `import './estilo.css'` en `src/main.ts`, eliminado `puedeRetirar()` duplicado (ahora importa el de `logica.ts`), agregado `id="app"` en `index.html`, eliminado `<link>` duplicado.
+3. P2: 2 pruebas nuevas de partida completa hasta el final bueno (vs computadora con juego óptimo y dos jugadores con secuencia fija) → **23/23 tests** ✅.
+4. README reescrito a las 6 partes exactas de P6; partes 5 y 6 dejadas en blanco para el estudiante.
+- `npx tsc --noEmit` ✅, `npm test` 23/23 ✅, `npm run build` ✅, verificación en navegador vía DOM (12 pupusas, 16px, `id="app"`, cero errores de consola) ✅.
+
 > **Nota:** Los commits 2 y 3 (`reglas: logica desde mi ficha`, `pruebas: reglas comprobadas`) quedaron cubiertos en el commit 1 porque toda la lógica y pruebas se implementaron y verificaron en la etapa inicial. Se documenta aquí para trazabilidad.
