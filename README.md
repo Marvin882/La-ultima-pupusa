@@ -35,7 +35,7 @@ npm run preview
 
 🔗 https://marvin882.github.io/La-ultima-pupusa/
 
-*(Se publica automáticamente desde la rama `gh-pages` tras push a `master`)*
+*(Se publica automáticamente desde la rama `gh-pages` tras push a `master` — **verificado funcionando**)*
 
 ---
 
