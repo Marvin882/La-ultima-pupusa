@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La última pupusa</title>
+  <link rel="stylesheet" href="src/estilo.css">
+</head>
+<body>
+  <main class="contenedor-juego">
+    <header>
+      <h1>La última pupusa</h1>
+      <p class="subtitulo">Juego de estrategia salvadoreño</p>
+    </header>
+
+    <section class="plato-contenedor" aria-label="Plato con pupusas restantes">
+      <div id="plato" role="img" aria-label="Plato con pupusas"></div>
+      <p id="pupusas-restantes" class="contador-valor" aria-live="polite">12</p>
+    </section>
+
+    <div class="info-juego">
+      <div class="contador">
+        <span class="contador-label">Pupusas restantes</span>
+      </div>
+      <div class="turno" id="turno-actual">
+        <span class="turno-label">Turno actual</span>
+        <span class="turno-valor">Tu turno</span>
+      </div>
+    </div>
+
+    <div class="acciones" role="group" aria-label="Acciones del juego">
+      <button id="btn-1" class="btn btn-retirar" aria-label="Retirar 1 pupusa">Retirar 1</button>
+      <button id="btn-2" class="btn btn-retirar" aria-label="Retirar 2 pupusas">Retirar 2</button>
+      <button id="btn-3" class="btn btn-retirar" aria-label="Retirar 3 pupusas">Retirar 3</button>
+    </div>
+
+    <p id="mensaje" class="mensaje" aria-live="assertive" aria-atomic="true"></p>
+
+    <button id="btn-reiniciar" class="btn btn-reiniciar">Reiniciar partida</button>
+
+    <section class="historial-contenedor" aria-label="Historial de movimientos">
+      <h2 class="historial-titulo">Historial</h2>
+      <div id="historial" role="log" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script type="module" src="src/main.ts"></script>
+</body>
+</html>
