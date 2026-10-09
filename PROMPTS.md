@@ -43,10 +43,18 @@
 
 ---
 
-## Próximos pasos pendientes
+## Prompt 5
+**Usuario:**
+> si te confirmo
 
-- [ ] Commit 4: `pantalla: interfaz basica` (interfaz ya verificada funcionando)
-- [ ] Commit 5: `movil: funciona con el dedo` (requisitos ya cumplidos en CSS; falta confirmación de prueba en móvil real)
-- [ ] Commit 6: `docs: readme y publicacion` (README.md y PROMPTS.md creados; falta publicar en GitHub Pages y verificar URL pública)
+**Resultado:** Usuario confirma prueba en móvil real: botones ≥44px, sin scroll horizontal, texto legible (≥16px), juego completo funcionando con dedo. Commit: `movil: funciona con el dedo`.
+
+## Prompt 6
+**Usuario:**
+> ahora si, puedes continuar con lo que falta
+
+**Resultado:** Verificado sitio público en https://marvin882.github.io/La-ultima-pupusa/ (HTTP 200). GitHub Pages desplegado desde rama `gh-pages` via GitHub Actions. Commit: `docs: readme y publicacion`.
+
+---
 
 > **Nota:** Los commits 2 y 3 (`reglas: logica desde mi ficha`, `pruebas: reglas comprobadas`) quedaron cubiertos en el commit 1 porque toda la lógica y pruebas se implementaron y verificaron en la etapa inicial. Se documenta aquí para trazabilidad.
